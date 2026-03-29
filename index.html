@@ -670,28 +670,67 @@ footer {
         <div class="contact-detail"><div class="detail-icon">✉</div><span>info@ArcadeAcademy.Online</span></div>
         <div class="contact-detail"><div class="detail-icon">📍</div><span>United Kingdom</span></div>
       </div>
-      <form class="form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="James" required></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith"></div>
-        </div>
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="james@studio.com" required></div>
-        <div class="form-group">
-          <label>I'm interested in</label>
-          <select>
-            <option value="">Select a service…</option>
-            <option>Game Design Lab Workshop</option>
-            <option>Game Jam (Online)</option>
-            <option>Game Jam (In-Person)</option>
-            <option>Custom Workshop / Talk</option>
-            <option>Consultation</option>
-            <option>Something else</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your group, goals, or any questions…"></textarea></div>
-        <button type="submit" class="btn btn-filled" style="align-self:flex-start;">Send Message →</button>
-        <p id="success" style="display:none;color:var(--teal);font-weight:700;font-size:13px;letter-spacing:0.08em;">✓ Message sent — we'll be in touch within 24 hours.</p>
-      </form>
+      <form class="form" onsubmit="openMailClient(event)">
+  <div class="form-row">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" placeholder="James" required>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" placeholder="Smith">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="james@studio.com" required>
+  </div>
+
+  <div class="form-group">
+    <label>I'm interested in</label>
+    <select id="service">
+      <option value="">Select a service…</option>
+      <option>Game Design Lab Workshop</option>
+      <option>Game Jam (Online)</option>
+      <option>Game Jam (In-Person)</option>
+      <option>Custom Workshop / Talk</option>
+      <option>Consultation</option>
+      <option>Something else</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea id="message" placeholder="Tell us about your group, goals, or any questions…"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-filled" style="align-self:flex-start;">Send Message →</button>
+</form>
+
+<script>
+  function openMailClient(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const subject = encodeURIComponent(`Arcade Academy enquiry from ${firstName} ${lastName}`.trim());
+    const body = encodeURIComponent(
+`Name: ${firstName} ${lastName}
+Email: ${email}
+Interested in: ${service}
+
+Message:
+${message}`
+    );
+
+    window.location.href = `mailto:info@arcadeacademy.online?subject=${subject}&body=${body}`;
+  }
+</script>
     </div>
   </div>
 </section>
