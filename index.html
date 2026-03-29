@@ -184,6 +184,24 @@ nav {
 .hero-scroll p { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--tx-3); }
 @keyframes pulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
 
+.reveal-section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: sectionFade 0.8s ease forwards;
+}
+
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.2s; }
+.reveal-delay-3 { animation-delay: 0.3s; }
+.reveal-delay-4 { animation-delay: 0.4s; }
+
+@keyframes sectionFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ─── GRADIENT DIVIDER ─── */
 .divider { height: 4px; background: var(--grad-bar); }
 
@@ -517,7 +535,7 @@ footer {
 <div class="divider"></div>
 
 <!-- OFFER -->
-<section id="offer">
+<section id="offer" class="reveal-section reveal-delay-1">
   <div class="wrap">
     <p class="eyebrow">What We Offer</p>
     <h2 class="sec-title">Three Ways to <span class="accent">Level Up</span></h2>
@@ -556,7 +574,7 @@ footer {
 <div class="divider"></div>
 
 <!-- GAME DESIGN LAB -->
-<section id="gdl">
+<section id="gdl" class="reveal-section reveal-delay-2">
   <div class="wrap">
     <div class="two-col">
       <div>
@@ -594,7 +612,7 @@ footer {
 <div class="divider"></div>
 
 <!-- WORKSHOPS -->
-<section id="workshops">
+<section id="workshops" class="reveal-section reveal-delay-3">
   <div class="wrap">
     <div class="workshop-cols">
       <div>
@@ -621,7 +639,7 @@ footer {
 <div class="divider"></div>
 
 <!-- GAME JAM -->
-<section id="gamejam">
+<section id="gamejam" class="reveal-section reveal-delay-4">
   <div class="wrap">
     <div class="jam-cols">
       <div>
@@ -681,7 +699,7 @@ footer {
 </section>
 
 <!-- STATS -->
-<section id="stats">
+<section id="stats" class="reveal-section reveal-delay-2">
   <div class="stats-grid">
     <div><div class="stat-num">30+</div><div class="stat-label">Projects Tested</div></div>
     <div><div class="stat-num">10+</div><div class="stat-label">Years Game Dev Experience</div></div>
@@ -693,7 +711,7 @@ footer {
 <div class="divider"></div>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" class="reveal-section reveal-delay-3">
   <div class="wrap">
     <div class="contact-cols">
       <div class="contact-info">
