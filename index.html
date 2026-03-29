@@ -57,7 +57,14 @@ nav {
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(110,216,216,0.1);
 }
-.nav-logo img { height: 44px; width: auto; }
+.nav-logo img { height: 44px; width: auto;
+                transition: transform 0.2s ease;
+}
+
+  .nav-logo:hover img {
+  transform: scale(1.05);
+}
+  
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a {
   font-family: 'Barlow Condensed', sans-serif;
@@ -107,15 +114,20 @@ nav {
 .hero-logo {
   width: clamp(180px, 22vw, 320px);
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   filter: drop-shadow(0 0 20px rgba(240, 90, 154, 0.35));
-  animation: floatLogo 4s ease-in-out infinite;
+  animation: floatLogo 4s ease-in-out infinite, glowPulse 3s ease-in-out infinite;
   image-rendering: -webkit-optimize-contrast;
 }
 
 @keyframes floatLogo {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(240, 90, 154, 0.35)); }
+  50% { filter: drop-shadow(0 0 35px rgba(240, 90, 154, 0.6)); }
 }
   
 .hero-presents {
@@ -129,6 +141,8 @@ nav {
   color: var(--coral);
   text-shadow: 0 0 60px rgba(240,120,80,0.4);
   animation: fadeUp 0.8s 0.2s both;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .hero-services {
   font-family: 'Barlow Condensed', sans-serif;
