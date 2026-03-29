@@ -670,26 +670,26 @@ footer {
         <div class="contact-detail"><div class="detail-icon">✉</div><span>info@ArcadeAcademy.Online</span></div>
         <div class="contact-detail"><div class="detail-icon">📍</div><span>United Kingdom</span></div>
       </div>
-      <form class="form" onsubmit="openMailClient(event)">
+     <form class="form" action="https://formsubmit.co/info@arcadeacademy.online" method="POST">
   <div class="form-row">
     <div class="form-group">
       <label>First Name</label>
-      <input type="text" id="firstName" placeholder="James" required>
+      <input type="text" name="first_name" placeholder="James" required>
     </div>
     <div class="form-group">
       <label>Last Name</label>
-      <input type="text" id="lastName" placeholder="Smith">
+      <input type="text" name="last_name" placeholder="Smith">
     </div>
   </div>
 
   <div class="form-group">
     <label>Email Address</label>
-    <input type="email" id="email" placeholder="james@studio.com" required>
+    <input type="email" name="email" placeholder="james@studio.com" required>
   </div>
 
   <div class="form-group">
     <label>I'm interested in</label>
-    <select id="service">
+    <select name="service">
       <option value="">Select a service…</option>
       <option>Game Design Lab Workshop</option>
       <option>Game Jam (Online)</option>
@@ -702,35 +702,16 @@ footer {
 
   <div class="form-group">
     <label>Message</label>
-    <textarea id="message" placeholder="Tell us about your group, goals, or any questions…"></textarea>
+    <textarea name="message" placeholder="Tell us about your group, goals, or any questions…"></textarea>
   </div>
+
+  <!-- Hidden config -->
+  <input type="hidden" name="_subject" value="New Arcade Academy enquiry">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
 
   <button type="submit" class="btn btn-filled" style="align-self:flex-start;">Send Message →</button>
 </form>
-
-<script>
-  function openMailClient(e) {
-    e.preventDefault();
-
-    const firstName = document.getElementById('firstName').value.trim();
-    const lastName = document.getElementById('lastName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const service = document.getElementById('service').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    const subject = encodeURIComponent(`Arcade Academy enquiry from ${firstName} ${lastName}`.trim());
-    const body = encodeURIComponent(
-`Name: ${firstName} ${lastName}
-Email: ${email}
-Interested in: ${service}
-
-Message:
-${message}`
-    );
-
-    window.location.href = `mailto:info@arcadeacademy.online?subject=${subject}&body=${body}`;
-  }
-</script>
     </div>
   </div>
 </section>
