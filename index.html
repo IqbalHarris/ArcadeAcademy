@@ -508,6 +508,140 @@ footer {
   .offer-grid { grid-template-columns: 1fr; }
   .delivery-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── REVIEWS ─── */
+#reviews {
+  padding: 96px 0;
+  background: var(--bg-2);
+  overflow: hidden;
+}
+
+.reviews-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+/* Track: hides scrollbar, allows drag/touch scroll */
+.reviews-track-wrap {
+  position: relative;
+}
+
+.reviews-track {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 48px 32px;
+  cursor: grab;
+}
+.reviews-track:active { cursor: grabbing; }
+.reviews-track::-webkit-scrollbar { display: none; }
+
+/* Each card snaps into place */
+.review-card {
+  scroll-snap-align: center;
+  flex: 0 0 min(600px, 80vw);
+  background: var(--bg-4);
+  border: 1px solid rgba(110,216,216,0.1);
+  border-radius: 20px;
+  padding: 40px 44px 36px;
+  position: relative;
+}
+
+/* big decorative quote mark */
+.review-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 18px; left: 32px;
+  font-family: Georgia, serif;
+  font-size: 88px;
+  line-height: 1;
+  color: var(--teal);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.review-quote {
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--tx-2);
+  line-height: 1.75;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid rgba(110,216,216,0.1);
+  padding-top: 20px;
+}
+
+.review-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--lavender));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: var(--bg-1);
+  flex-shrink: 0;
+}
+
+.review-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tx-1);
+  line-height: 1.2;
+}
+
+.review-role {
+  font-size: 13px;
+  color: var(--tx-3);
+  margin-top: 2px;
+}
+
+.review-stars {
+  margin-left: auto;
+  color: var(--coral);
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+/* Dot navigation */
+.reviews-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.reviews-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(110,216,216,0.25);
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.reviews-dot.active {
+  background: var(--teal);
+  transform: scale(1.3);
+  width: 22px;
+  border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -724,6 +858,66 @@ footer {
 
 <div class="divider"></div>
 
+<!-- REVIEWS
+     ═══════════════════════════════════════════════════════
+     To add a review: copy one <div class="review-card"> block,
+     paste it inside .reviews-track, and update the text.
+     The dots update automatically — no other changes needed.
+     To remove: delete the entire <div class="review-card"> block.
+     ═══════════════════════════════════════════════════════ -->
+<section id="reviews">
+  <div class="reviews-header wrap">
+    <p class="eyebrow" style="justify-content:center;">What People Say</p>
+    <h2 class="sec-title">Heard it from <span class="accent">the Source</span></h2>
+  </div>
+
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack">
+
+      <div class="review-card">
+        <p class="review-quote">"An incredibly engaging session — the students were hooked from the first five minutes. The way game mechanics were broken down made design feel genuinely accessible. We've already had requests to bring it back next semester."</p>
+        <div class="review-meta">
+          <div class="review-avatar">SL</div>
+          <div>
+            <div class="review-name">Sarah L.</div>
+            <div class="review-role">Senior Lecturer, Game Design — University of Salford</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <p class="review-quote">"What stood out was the depth of industry knowledge combined with a real ability to communicate it to students at different levels. Not a dry lecture — a proper, energetic workshop that got people thinking and creating."</p>
+        <div class="review-meta">
+          <div class="review-avatar">MR</div>
+          <div>
+            <div class="review-name">Marcus R.</div>
+            <div class="review-role">Programme Lead, Creative Computing — Staffordshire University</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <p class="review-quote">"The Game Jam was the highlight of our students' year. The structure was perfect — enough guidance to keep teams on track without removing the creative freedom. The final showcase had energy I haven't seen in a while."</p>
+        <div class="review-meta">
+          <div class="review-avatar">JP</div>
+          <div>
+            <div class="review-name">Jamie P.</div>
+            <div class="review-role">Course Director, Digital Media — Falmouth University</div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="reviews-dots" id="reviewsDots"></div>
+</section>
+
+<div class="divider"></div>
+
 <!-- CONTACT -->
 <section id="contact" class="reveal-section reveal-delay-3">
   <div class="wrap">
@@ -732,7 +926,7 @@ footer {
         <p class="eyebrow">Get In Touch</p>
         <h2 class="sec-title">Let's Build <span class="accent">Something Great.</span></h2>
         <p class="contact-intro">Whether you've got a fully-formed idea or just a spark, we'd love to hear from you. Book a workshop, Game Jam, or consultation — we'll reply within 24 hours.</p>
-        <div class="contact-detail"><div class="detail-icon">✉</div><a href="mailto:info@arcadeacademy.online">info@arcadeacademy.online</a></div>
+        <div class="contact-detail"><div class="detail-icon">✉</div><a href="/cdn-cgi/l/email-protection#b2dbdcd4ddf2d3c0d1d3d6d7d3d1d3d6d7dfcb9cdddcdedbdcd7"><span class="__cf_email__" data-cfemail="40292e262f0021322321242521232124252d396e2f2e2c292e25">[email&#160;protected]</span></a></div>
         <div class="contact-detail"><div class="detail-icon">📍</div><span>United Kingdom</span></div>
       </div>
      <form class="form" action="https://formsubmit.co/info@arcadeacademy.online" method="POST">
@@ -790,19 +984,68 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+  // ── REVIEWS CAROUSEL ──────────────────────────────────────────────────────
+  (function() {
+    const track  = document.getElementById('reviewsTrack');
+    const dotWrap = document.getElementById('reviewsDots');
+    if (!track || !dotWrap) return;
+
+    const cards = () => Array.from(track.querySelectorAll('.review-card'));
+
+    // Build dots dynamically — one per card
+    function buildDots() {
+      dotWrap.innerHTML = '';
+      cards().forEach((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'reviews-dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', 'Go to review ' + (i + 1));
+        btn.addEventListener('click', () => scrollToCard(i));
+        dotWrap.appendChild(btn);
+      });
+    }
+
+    function scrollToCard(index) {
+      const card = cards()[index];
+      if (!card) return;
+      const offset = card.offsetLeft - (track.offsetWidth - card.offsetWidth) / 2;
+      track.scrollTo({ left: offset, behavior: 'smooth' });
+    }
+
+    function updateDots() {
+      const allCards = cards();
+      if (!allCards.length) return;
+      const centre = track.scrollLeft + track.offsetWidth / 2;
+      let closest = 0, minDist = Infinity;
+      allCards.forEach((card, i) => {
+        const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - centre);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      dotWrap.querySelectorAll('.reviews-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === closest);
+      });
+    }
+
+    buildDots();
+    track.addEventListener('scroll', updateDots, { passive: true });
+
+    // Drag-to-scroll on desktop
+    let isDown = false, startX, scrollStart;
+    track.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollStart = track.scrollLeft;
+      track.style.userSelect = 'none';
+    });
+    document.addEventListener('mouseup',   () => { isDown = false; track.style.userSelect = ''; });
+    document.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      const x = e.pageX - track.offsetLeft;
+      track.scrollLeft = scrollStart - (x - startX);
+    });
+  })();
+
+</script><script>
   // Nav scroll shrink
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {
-    nav.style.height = window.scrollY > 60 ? '54px' : '66px';
-  });
-
-  // Form submit
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.getElementById('success').style.display = 'block';
-    e.target.reset();
-  }
-</script>
-</body>
-</html>
