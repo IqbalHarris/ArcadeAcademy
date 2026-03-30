@@ -141,6 +141,18 @@ nav {
   font-size: 13px; letter-spacing: 0.45em; text-transform: uppercase;
   color: var(--tx-3); margin-bottom: 20px;
 }
+
+.hero-scroll {
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hero-scroll.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+}
+
 .hero-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(64px, 9vw, 114px); line-height: 0.9; letter-spacing: 0.02em;
@@ -534,14 +546,16 @@ footer {
 }
 
 .reviews-track {
+touch-action: pan-x;
   display: flex;
   gap: 28px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding: 8px calc((100vw - min(600px, 80vw)) / 2) 32px;
   cursor: grab;
+  scroll-behavior: smooth;
 }
 .reviews-track:active { cursor: grabbing; }
 .reviews-track::-webkit-scrollbar { display: none; }
@@ -549,6 +563,7 @@ footer {
 /* Each card snaps into place */
 .review-card {
   scroll-snap-align: center;
+  scroll-snap-stop: normal;
   flex: 0 0 min(600px, 80vw);
   background: var(--bg-4);
   border: 1px solid rgba(110,216,216,0.1);
@@ -989,16 +1004,15 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<script>
   // ── REVIEWS CAROUSEL ──────────────────────────────────────────────────────
   (function() {
-    const track  = document.getElementById('reviewsTrack');
+    const track = document.getElementById('reviewsTrack');
     const dotWrap = document.getElementById('reviewsDots');
     if (!track || !dotWrap) return;
 
     const cards = () => Array.from(track.querySelectorAll('.review-card'));
 
-    // Build dots dynamically — one per card
     function buildDots() {
       dotWrap.innerHTML = '';
       cards().forEach((_, i) => {
@@ -1022,34 +1036,63 @@ footer {
       if (!allCards.length) return;
       const centre = track.scrollLeft + track.offsetWidth / 2;
       let closest = 0, minDist = Infinity;
+
       allCards.forEach((card, i) => {
         const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - centre);
-        if (dist < minDist) { minDist = dist; closest = i; }
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
       });
+
       dotWrap.querySelectorAll('.reviews-dot').forEach((d, i) => {
         d.classList.toggle('active', i === closest);
       });
     }
 
     buildDots();
+    updateDots();
     track.addEventListener('scroll', updateDots, { passive: true });
 
     // Drag-to-scroll on desktop
-    let isDown = false, startX, scrollStart;
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
     track.addEventListener('mousedown', e => {
       isDown = true;
       startX = e.pageX - track.offsetLeft;
       scrollStart = track.scrollLeft;
       track.style.userSelect = 'none';
     });
-    document.addEventListener('mouseup',   () => { isDown = false; track.style.userSelect = ''; });
+
+    document.addEventListener('mouseup', () => {
+      isDown = false;
+      track.style.userSelect = '';
+    });
+
     document.addEventListener('mousemove', e => {
       if (!isDown) return;
       const x = e.pageX - track.offsetLeft;
-      track.scrollLeft = scrollStart - (x - startX);
+      track.scrollLeft = scrollStart - (x - startX) * 1.15;
     });
   })();
 
+  // Nav scroll shrink
+  const nav = document.querySelector('nav');
+  const scrollIndicator = document.querySelector('.hero-scroll');
+
+  window.addEventListener('scroll', () => {
+    nav.style.height = window.scrollY > 60 ? '54px' : '66px';
+
+    if (scrollIndicator) {
+      if (window.scrollY > 40) {
+        scrollIndicator.classList.add('hidden');
+      } else {
+        scrollIndicator.classList.remove('hidden');
+      }
+    }
+  });
 </script><script>
   // Nav scroll shrink
   const nav = document.querySelector('nav');
