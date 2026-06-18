@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Game Workshop | Arcade Academy Online</title>
+<meta name="description" content="A hands-on summer game design workshop for teens and young adults, helping students think like designers and build a fully developed game concept.">
+<link rel="icon" type="image/png" href="imageb.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400;1,700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal: #6ed8d8;
+  --lavender: #b89ee0;
+  --hot-pink: #f05a9a;
+  --coral: #f07850;
+  --white: #ffffff;
+  --bg-1: #0b0b18;
+  --bg-2: #111122;
+  --bg-3: #161630;
+  --bg-4: #1c1c3a;
+  --tx-1: #ffffff;
+  --tx-2: #e2ddf5;
+  --tx-3: #a096c8;
+  --grad-accent: linear-gradient(135deg, #f07850 0%, #f05a9a 100%);
+  --grad-bar: linear-gradient(90deg, #6ed8d8, #b89ee0, #f05a9a);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg-1);
+  color: var(--tx-2);
+  overflow-x: hidden;
+}
+
+a, button { cursor: pointer; }
+strong { color: var(--tx-1); font-weight: 800; }
+
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 4px; background: var(--grad-bar);
+}
+
+nav {
+  position: fixed; top: 4px; left: 0; right: 0; z-index: 199;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 66px;
+  background: rgba(11,11,24,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(110,216,216,0.1);
+  transition: height 0.2s ease;
+}
+.nav-logo img {
+  height: 44px; width: auto;
+  transition: transform 0.2s ease;
+}
+.nav-logo:hover img { transform: scale(1.05); }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--tx-3);
+  text-decoration: none; padding: 8px 16px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  background: var(--grad-accent);
+  color: var(--white) !important;
+  padding: 9px 24px !important;
+  border-radius: 50px;
+  box-shadow: 0 4px 16px rgba(240,90,154,0.35);
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(240,90,154,0.5) !important;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.divider { height: 4px; background: var(--grad-bar); }
+
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--hot-pink);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 10px;
+}
+.eyebrow::before {
+  content: ''; width: 32px; height: 2px;
+  background: linear-gradient(90deg, var(--hot-pink), var(--lavender));
+}
+
+h2.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 4.5vw, 58px);
+  letter-spacing: 0.07em;
+  color: var(--tx-1);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+h2.sec-title .accent { color: var(--coral); }
+.sec-body {
+  font-size: 17px; line-height: 1.85;
+  color: var(--tx-2); max-width: 680px;
+}
+
+.btn {
+  display: inline-block; text-decoration: none; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 13px 30px; border-radius: 50px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn-filled {
+  background: var(--grad-accent); color: var(--white);
+  box-shadow: 0 4px 18px rgba(240,90,154,0.35);
+}
+.btn-filled:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(240,90,154,0.5);
+}
+.btn-ghost {
+  background: transparent; color: var(--tx-2);
+  border: 1.5px solid rgba(226,221,245,0.25);
+}
+.btn-ghost:hover {
+  border-color: var(--teal); color: var(--teal);
+  transform: translateY(-2px);
+}
+
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 116px 0 96px;
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse 90% 70% at 50% 38%, #1a2a3a 0%, #0e0e22 50%, #1a0e28 100%);
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(rgba(110,216,216,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110,216,216,0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, black 0%, transparent 70%);
+  pointer-events: none;
+}
+.sq {
+  position: absolute;
+  border: 1.5px solid rgba(110,216,216,0.2);
+  animation: floatSq 7s ease-in-out infinite;
+}
+.sq:nth-child(1) { width: 44px; height: 44px; top: 13%; left: 8%; animation-delay: 0s; }
+.sq:nth-child(2) { width: 28px; height: 28px; top: 20%; left: 33%; animation-delay: 1.2s; }
+.sq:nth-child(3) { width: 36px; height: 36px; top: 65%; left: 6%; animation-delay: 2.4s; }
+.sq:nth-child(4) { width: 22px; height: 22px; top: 74%; right: 7%; animation-delay: 0.6s; }
+.sq:nth-child(5) { width: 48px; height: 48px; top: 17%; right: 8%; animation-delay: 1.8s; }
+@keyframes floatSq {
+  0%,100% { transform: translateY(0) rotate(0deg); opacity: .25; }
+  50% { transform: translateY(-16px) rotate(6deg); opacity: .6; }
+}
+
+.hero-grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 42px;
+  align-items: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.hero-copy {
+  text-align: center;
+}
+.hero-logo {
+  width: clamp(145px, 17vw, 220px);
+  height: auto;
+  margin: 0 auto 16px;
+  display: block;
+  filter: drop-shadow(0 0 20px rgba(240,90,154,0.35));
+  animation: floatLogo 4s ease-in-out infinite, glowPulse 3s ease-in-out infinite;
+}
+@keyframes floatLogo {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes glowPulse {
+  0%,100% { filter: drop-shadow(0 0 20px rgba(240,90,154,0.35)); }
+  50% { filter: drop-shadow(0 0 35px rgba(240,90,154,0.6)); }
+}
+.hero-presents {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--tx-3); margin-bottom: 20px;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 9vw, 112px);
+  line-height: 0.9; letter-spacing: 0.02em;
+  color: var(--coral);
+  text-shadow: 0 0 60px rgba(240,120,80,0.4);
+  margin-bottom: 18px;
+}
+.hero-services {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(14px, 2vw, 20px); letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--teal);
+  margin: 22px 0 14px; font-weight: 700;
+}
+.hero-tagline {
+  font-size: 18px; font-style: italic; font-weight: 400;
+  color: var(--tx-2); max-width: 640px;
+  line-height: 1.7; margin-bottom: 36px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-panel {
+  background: rgba(28,28,58,0.82);
+  border: 1px solid rgba(110,216,216,0.16);
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 18px 64px rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  margin: 0 auto;
+}
+.hero-media {
+  position: relative;
+  min-height: 420px;
+}
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(110,216,216,0.18);
+  box-shadow: 0 18px 58px rgba(0,0,0,0.45);
+  background: var(--bg-4);
+}
+.hero-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(11,11,24,0.82) 100%);
+  pointer-events: none;
+}
+.hero-photo img {
+  width: 100%;
+  min-height: 390px;
+  object-fit: cover;
+  display: block;
+}
+.hero-sticker {
+  position: absolute;
+  left: 22px;
+  bottom: 92px;
+  max-width: 330px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgba(11,11,24,0.84);
+  border: 1px solid rgba(110,216,216,0.22);
+  box-shadow: 0 12px 38px rgba(0,0,0,0.42);
+}
+.hero-sticker span {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--teal);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.hero-sticker p {
+  color: var(--tx-1);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 800;
+}
+.concept-window {
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(14,20,40,0.96), rgba(30,16,96,0.9));
+  overflow: hidden;
+  border: 1px solid rgba(184,158,224,0.18);
+}
+.window-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.window-dot { width: 9px; height: 9px; border-radius: 50%; }
+.window-dot:nth-child(1) { background: var(--coral); }
+.window-dot:nth-child(2) { background: var(--hot-pink); }
+.window-dot:nth-child(3) { background: var(--teal); }
+.window-title {
+  margin-left: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--tx-3);
+}
+.design-board { padding: 22px; }
+.board-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--teal);
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.board-title {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--tx-1);
+  letter-spacing: 0.06em;
+  font-size: 38px;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+.pillar-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 20px;
+}
+.pillar {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 13px;
+}
+.pillar-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lavender); margin-bottom: 6px;
+}
+.pillar-copy { color: var(--tx-2); font-size: 14px; line-height: 1.55; }
+.board-progress {
+  height: 8px; border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  overflow: hidden; margin-top: 18px;
+}
+.board-progress span {
+  display: block; width: 78%; height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--hot-pink));
+}
+.hero-facts {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 12px; margin-top: 14px;
+}
+.fact-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 15px 12px;
+}
+.fact-num {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--white);
+  font-size: 31px; line-height: 1;
+}
+.fact-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--tx-3);
+  letter-spacing: 0.16em; text-transform: uppercase;
+  font-size: 11px; margin-top: 6px;
+}
+
+section { padding: 96px 0; }
+#why { background: var(--bg-3); }
+#path { background: var(--bg-2); }
+#mentor { background: var(--bg-1); position: relative; overflow: hidden; }
+#mentor::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 70% at 82% 45%, rgba(184,158,224,0.11) 0%, transparent 65%);
+  pointer-events: none;
+}
+#info { background: var(--bg-3); }
+#interest { background: var(--bg-2); }
+
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 72px; align-items: center;
+}
+.feature-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+.feature {
+  display: flex; gap: 14px; align-items: flex-start;
+  font-size: 15.5px; color: var(--tx-2); line-height: 1.75;
+}
+.feature-dot {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+  color: var(--white);
+}
+.dot-teal { background: rgba(110,216,216,0.15); color: var(--teal); }
+.dot-pink { background: rgba(240,90,154,0.15); color: var(--hot-pink); }
+.dot-coral { background: rgba(240,120,80,0.15); color: var(--coral); }
+.dot-purple { background: rgba(184,158,224,0.15); color: var(--lavender); }
+
+.quote-box {
+  background: var(--bg-4);
+  border: 1px solid rgba(184,158,224,0.2);
+  border-radius: 18px;
+  padding: 38px 32px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+}
+.quote-mark {
+  font-family: Georgia, serif;
+  color: var(--teal);
+  opacity: 0.24;
+  font-size: 74px;
+  line-height: 0.5;
+  margin-bottom: 16px;
+}
+.quote-box p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--tx-2);
+}
+
+.path-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 24px; margin-top: 52px;
+}
+.path-card {
+  background: var(--bg-4);
+  border: 1px solid rgba(110,216,216,0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.path-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+.path-media {
+  height: 185px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-1);
+}
+.path-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,11,24,0.02) 0%, rgba(11,11,24,0.62) 100%);
+}
+.path-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.path-card:hover .path-media img { transform: scale(1.05); }
+.card-stripe { height: 5px; }
+.stripe-teal { background: linear-gradient(90deg, var(--teal), var(--lavender)); }
+.stripe-pink { background: linear-gradient(90deg, var(--hot-pink), var(--coral)); }
+.stripe-purple { background: linear-gradient(90deg, var(--lavender), var(--hot-pink)); }
+.path-body { padding: 30px 26px 34px; }
+.path-step {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px; line-height: 1;
+  color: rgba(255,255,255,0.16);
+  margin-bottom: 8px;
+}
+.path-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 19px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.name-teal { color: var(--teal); }
+.name-pink { color: var(--hot-pink); }
+.name-purple { color: var(--lavender); }
+.path-desc { font-size: 15.5px; color: var(--tx-2); line-height: 1.8; }
+.did-you-know {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(110,216,216,0.1);
+  color: var(--tx-3);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.did-you-know strong {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+
+.mentor-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: .9fr 1.1fr;
+  gap: 56px; align-items: start;
+}
+.mentor-card, .quote-card, .info-card {
+  background: var(--bg-4);
+  border: 1px solid rgba(110,216,216,0.12);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+.mentor-card h3, .info-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 18px;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.profile-tile {
+  min-height: 130px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 20px;
+}
+.profile-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 0.9;
+  color: var(--coral);
+  margin-bottom: 10px;
+}
+.profile-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tx-1);
+  margin-bottom: 8px;
+}
+.profile-copy {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--tx-3);
+}
+.mentor-note {
+  margin-top: 16px;
+  padding: 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(110,216,216,0.12), rgba(240,90,154,0.1));
+  border: 1px solid rgba(110,216,216,0.14);
+}
+.mentor-note p {
+  font-size: 15.5px;
+  color: var(--tx-2);
+  line-height: 1.75;
+}
+.quote-section {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
+.quote-section-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.quote-section-header h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 3vw, 42px);
+  letter-spacing: 0.07em;
+  color: var(--tx-1);
+  line-height: 1;
+}
+.quote-section-header span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.quote-card {
+  position: relative;
+  padding: 26px 28px;
+  overflow: hidden;
+}
+.quote-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  font-family: Georgia, serif;
+  font-size: 78px;
+  line-height: 1;
+  color: var(--teal);
+  opacity: 0.13;
+}
+.quote-card p {
+  position: relative;
+  z-index: 1;
+  font-size: 15px;
+  line-height: 1.72;
+  font-style: italic;
+  color: var(--tx-2);
+  margin-bottom: 16px;
+}
+.quote-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+.info-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 16px; margin-top: 42px;
+}
+.info-card {
+  padding: 24px;
+  min-height: 190px;
+}
+.info-label {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--coral);
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.info-card p {
+  color: var(--tx-2);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.interest-panel {
+  display: grid; grid-template-columns: .95fr 1.05fr;
+  gap: 56px; align-items: start;
+  background: linear-gradient(135deg, rgba(28,28,58,0.9), rgba(17,17,34,0.96));
+  border: 1px solid rgba(184,158,224,0.2);
+  border-radius: 22px;
+  padding: 42px;
+  box-shadow: 0 18px 64px rgba(0,0,0,0.35);
+}
+.status-pill {
+  display: inline-flex; align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--teal);
+  border: 1px solid rgba(110,216,216,0.24);
+  border-radius: 999px;
+  padding: 8px 14px;
+  margin-bottom: 18px;
+}
+.interest-panel h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 5vw, 66px);
+  color: var(--tx-1);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  margin-bottom: 16px;
+}
+.interest-panel h2 span { color: var(--coral); }
+.interest-panel p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--tx-2);
+}
+
+.form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--tx-3);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--bg-4); color: var(--tx-1);
+  border: 1.5px solid rgba(184,158,224,0.18);
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 15px;
+  padding: 12px 14px; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--tx-3); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(110,216,216,0.12);
+}
+.form-group select option { background: var(--bg-4); color: var(--tx-1); }
+.form-group textarea { min-height: 112px; resize: vertical; }
+
+footer {
+  background: var(--bg-1); padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(110,216,216,0.1);
+}
+.footer-copy { font-size: 12px; color: var(--tx-3); }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a {
+  font-size: 12px; color: var(--tx-3);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--teal); }
+
+@media (max-width: 980px) {
+  .hero-grid, .two-col, .mentor-grid, .interest-panel { grid-template-columns: 1fr; gap: 40px; }
+  .hero-panel { max-width: 620px; }
+  .path-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+  .quote-section-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+@media (max-width: 880px) {
+  nav { padding: 0 20px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .wrap { padding: 0 20px; }
+  footer { padding: 28px 20px; flex-direction: column; gap: 14px; text-align: center; }
+}
+@media (max-width: 620px) {
+  #hero { padding-top: 108px; }
+  .hero-facts, .pillar-grid, .profile-grid, .quote-grid, .info-grid, .form-row { grid-template-columns: 1fr; }
+  .hero-media { min-height: 0; }
+  .hero-photo img { min-height: 330px; }
+  .hero-sticker {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: none;
+    margin: 14px 0;
+  }
+  .interest-panel { padding: 28px 22px; }
+  .hero-title { font-size: clamp(58px, 18vw, 82px); }
+}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="imageb.png" alt="Arcade Academy">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="#why">Why Design</a>
+    <a href="#path">Workshop</a>
+    <a href="#info">Info</a>
+    <a href="#interest" class="nav-cta">Register Interest</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="sq"></div><div class="sq"></div><div class="sq"></div>
+  <div class="sq"></div><div class="sq"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <img src="logo.png" alt="Arcade Academy" class="hero-logo">
+        <p class="hero-presents">Presents</p>
+        <h1 class="hero-title">Summer<br>Design Lab</h1>
+        <p class="hero-services">Game Design &nbsp; / &nbsp; Critical Thinking &nbsp; / &nbsp; Creative Planning</p>
+        <p class="hero-tagline">A hands-on creative workshop that turns play into real design skills, helping teens and young adults understand what makes great games work.</p>
+        <div class="hero-ctas">
+          <a href="#path" class="btn btn-filled">Explore the Workshop</a>
+          <a href="#interest" class="btn btn-ghost">Register Interest</a>
+        </div>
+      </div>
+      <div class="hero-panel hero-media">
+        <div class="hero-photo">
+          <img src="assets/summer-image01.jpg" alt="A colourful video game character toy standing outdoors">
+        </div>
+        <div class="hero-sticker">
+          <span>Play Becomes Practice</span>
+          <p>Students break down popular games, then use that thinking to shape their own ideas.</p>
+        </div>
+        <div class="hero-facts">
+          <div class="fact-card"><div class="fact-num">13+</div><div class="fact-label">Age Guidance</div></div>
+          <div class="fact-card"><div class="fact-num">12</div><div class="fact-label">Max Students</div></div>
+          <div class="fact-card"><div class="fact-num">1</div><div class="fact-label">Game Plan</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="why">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <p class="eyebrow">Why Play Matters</p>
+        <h2 class="sec-title">Games Build <span class="accent">Real Skills</span></h2>
+        <p class="sec-body">Play is not just fun. It is a vital part of how young minds learn, test ideas, and grow. By looking at games as designed experiences, students start to see them in a new way: not just as players, but as designers.</p>
+        <ul class="feature-list">
+          <li class="feature"><div class="feature-dot dot-teal">1</div><span>Students learn to analyze challenges, think creatively, and plan strategically.</span></li>
+          <li class="feature"><div class="feature-dot dot-pink">2</div><span>Designing games builds critical thinking and problem-solving skills that translate to school, tech, art, and life.</span></li>
+          <li class="feature"><div class="feature-dot dot-coral">3</div><span>Popular games become case studies for systems, storytelling, difficulty, pacing, and player motivation.</span></li>
+        </ul>
+      </div>
+      <div class="quote-box">
+        <div class="quote-mark">"</div>
+        <p>Video games engage huge audiences worldwide, but the real magic is learning how designers shape challenge, emotion, curiosity, and reward. This workshop turns that curiosity into a practical design process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="path">
+  <div class="wrap">
+    <p class="eyebrow">Inside the Workshop</p>
+    <h2 class="sec-title">Think Like <span class="accent">a Designer</span></h2>
+    <p class="sec-body">The workshop breaks game design into clear, creative steps. Students explore how strong ideas form, how design problems get solved, and how to present a concept that feels ready to build.</p>
+
+    <div class="path-grid">
+      <div class="path-card">
+        <div class="card-stripe stripe-teal"></div>
+        <div class="path-media">
+          <img src="assets/summer-image03.jpg" alt="Minecraft characters in a colourful block-built game world">
+        </div>
+        <div class="path-body">
+          <div class="path-step">01</div>
+          <div class="path-name name-teal">Design from Imagination</div>
+          <p class="path-desc">Students learn how to turn an idea into a strong game concept by using brainstorming techniques, themes, and core pillars that shape the player experience.</p>
+          <div class="did-you-know"><strong>Did You Know?</strong>Project 1845 is a huge Minecraft recreation of Beijing in 1751, showing how theme, research, and player-made worlds can create astonishing design work.</div>
+        </div>
+      </div>
+      <div class="path-card">
+        <div class="card-stripe stripe-pink"></div>
+        <div class="path-media">
+          <img src="assets/summer-image04.jpg" alt="Fortnite-style blueprint drawing of a game structure">
+        </div>
+        <div class="path-body">
+          <div class="path-step">02</div>
+          <div class="path-name name-pink">Creative Problem Solving</div>
+          <p class="path-desc">Designers face tricky problems, from balancing difficulty to keeping players engaged. Students learn to approach those problems flexibly and think outside the obvious answer.</p>
+          <div class="did-you-know"><strong>Did You Know?</strong>Games like Fortnite show how design choices, updates, social play, and progression systems can keep communities active at massive scale.</div>
+        </div>
+      </div>
+      <div class="path-card">
+        <div class="card-stripe stripe-purple"></div>
+        <div class="path-media">
+          <img src="assets/summer-image05.jpg" alt="Fantasy game hero flying toward a huge creature">
+        </div>
+        <div class="path-body">
+          <div class="path-step">03</div>
+          <div class="path-name name-purple">Leave With a Game Plan</div>
+          <p class="path-desc">By the end, each student leaves with a fully developed game concept featuring a unique world, original mechanics, and ideas they can continue to build on.</p>
+          <div class="did-you-know"><strong>Did You Know?</strong>Researchers and play experts describe play as essential to learning, creativity, and growth.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="mentor">
+  <div class="wrap">
+    <div class="mentor-grid">
+      <div>
+        <p class="eyebrow">Industry-Proven Expertise</p>
+        <h2 class="sec-title">Meet Your <span class="accent">Mentor</span></h2>
+        <p class="sec-body">Arcade Academy is proud to have Haris Iqbal leading its summer workshop, a game designer and former journalist with over 10 years of experience in the video game industry.</p>
+      </div>
+      <div class="mentor-card">
+        <h3>Profile Snapshot</h3>
+        <div class="profile-grid">
+          <div class="profile-tile">
+            <div class="profile-value">10+</div>
+            <div class="profile-label">Years Experience</div>
+            <div class="profile-copy">Practical experience across game design, journalism, critique, and creative direction.</div>
+          </div>
+          <div class="profile-tile">
+            <div class="profile-value">Shipped</div>
+            <div class="profile-label">Product Experience</div>
+            <div class="profile-copy">Shipped game experience across PC, PlayStation, and Xbox on titles played by millions around the world.</div>
+          </div>
+          <div class="profile-tile">
+            <div class="profile-value">Tested</div>
+            <div class="profile-label">Consultation & Feedback</div>
+            <div class="profile-copy">Consulted on and tested games, giving practical feedback from early concept through to final polish.</div>
+          </div>
+          <div class="profile-tile">
+            <div class="profile-value">Talks</div>
+            <div class="profile-label">Educational Support</div>
+            <div class="profile-copy">Shared industry insight through guest lectures and student support at universities including Westminster, Nottingham, and UCLan.</div>
+          </div>
+        </div>
+        <div class="mentor-note">
+          <p>This workshop is not just about video games. It helps learners solve problems, tell compelling stories, and think like designers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-section">
+      <div class="quote-section-header">
+        <h3>What Others Have Said</h3>
+        <span>Talks / Workshops / Feedback</span>
+      </div>
+      <div class="quote-grid">
+        <div class="quote-card">
+          <p>"Haris Iqbal's talk was a dynamic journey through the heart of Games. By the session's end, the students had collected more than just insights, they had a roadmap for action."</p>
+          <div class="quote-name">University of Westminster</div>
+        </div>
+        <div class="quote-card">
+          <p>"Your presentation was spot on, and really helpful for the students. They all also benefitted a great deal from the time you spent with each of them looking at their work."</p>
+          <div class="quote-name">Futureworks</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="info">
+  <div class="wrap">
+    <p class="eyebrow">How Does It Work?</p>
+    <h2 class="sec-title">Workshop <span class="accent">Info</span></h2>
+    <p class="sec-body">The workshop is built to be focused, personal, and easy to join from home, with enough space for questions and feedback.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">13+</div>
+        <h3>Age Guidance</h3>
+        <p>Aimed at teenagers 13+ because of the games discussed. Younger students may join with parental guidance.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Online</div>
+        <h3>Discord Delivery</h3>
+        <p>Delivered online via Discord. Booking emails include the server link and worksheets.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">12</div>
+        <h3>Small Groups</h3>
+        <p>Each session has up to 12 students, giving enough time for questions and personal feedback.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Family</div>
+        <h3>Parents Welcome</h3>
+        <p>Parents are welcome, and encouraged, to sit alongside their child during the workshop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="interest">
+  <div class="wrap">
+    <div class="interest-panel">
+      <div>
+        <div class="status-pill">Now Taking Interest</div>
+        <h2>Register for <span>Summer Workshop</span></h2>
+        <p>Interested in signing up? Send us a message with your details and we will get back to you with the next steps, workshop information, and everything you need to know.</p>
+      </div>
+      <form class="form" action="https://formsubmit.co/info@arcadeacademy.online" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="James" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="james@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>I'm interested in</label>
+          <select name="service">
+            <option value="">Select an option...</option>
+            <option>Summer Game Workshop</option>
+            <option>Private Course</option>
+            <option>Guest Lecture</option>
+            <option>Consultation</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" placeholder="Tell us about your learner, group, or any questions..."></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New summer workshop signup interest">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <button type="submit" class="btn btn-filled" style="align-self:flex-start;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2026 Arcade Academy Online</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="#interest">Register Interest</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.height = window.scrollY > 60 ? '54px' : '66px';
+  });
+</script>
+</body>
+</html>
